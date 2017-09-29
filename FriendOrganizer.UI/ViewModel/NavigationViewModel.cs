@@ -1,32 +1,32 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using FriendOrganizer.Model;
+﻿using FriendOrganizer.Model;
 using FriendOrganizer.UI.Data;
 using FriendOrganizer.UI.Event;
 using Prism.Events;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace FriendOrganizer.UI.ViewModel
 {
     public class NavigationViewModel : ViewModelBase, INavigationViewModel
     {
-        private IFriendLookupDataService _friendLookupDataService;
+        private IFriendLookupDataService _friendLookupService;
         private IEventAggregator _eventAggregator;
 
-        public NavigationViewModel(IFriendLookupDataService friendLookupDataService, 
-            IEventAggregator eventAggregator)
+        public NavigationViewModel(IFriendLookupDataService friendLookupService,
+          IEventAggregator eventAggregator)
         {
-            _friendLookupDataService = friendLookupDataService;
+            _friendLookupService = friendLookupService;
             _eventAggregator = eventAggregator;
             Friends = new ObservableCollection<LookupItem>();
         }
 
         public async Task LoadAsync()
         {
-            var lookup = await _friendLookupDataService.GetFriendLookupAsync();
+            var lookup = await _friendLookupService.GetFriendLookupAsync();
             Friends.Clear();
-            foreach (var lookupItem in lookup)
+            foreach (var item in lookup)
             {
-                Friends.Add(lookupItem);
+                Friends.Add(item);
             }
         }
 
@@ -41,9 +41,10 @@ namespace FriendOrganizer.UI.ViewModel
             {
                 _selectedFriend = value;
                 OnPropertyChanged();
-                if (_selectedFriend!= null)
+                if (_selectedFriend != null)
                 {
-                    _eventAggregator.GetEvent<OpenFriendDetailViewEvent>().Publish(_selectedFriend.Id);
+                    _eventAggregator.GetEvent<OpenFriendDetailViewEvent>()
+                      .Publish(_selectedFriend.Id);
                 }
             }
         }

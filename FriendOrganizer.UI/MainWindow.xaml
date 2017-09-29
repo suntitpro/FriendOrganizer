@@ -10,13 +10,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <view:NavigationView 
-            DataContext="{Binding NavigationViewModel}"></view:NavigationView>
-        <view:FriendDetailView 
-            Grid.Column="1" 
-            DataContext="{Binding FriedDetailViewModel}"></view:FriendDetailView>
-
+        <view:NavigationView DataContext="{Binding NavigationViewModel}"/>
+        <view:FriendDetailView Grid.Column="1" DataContext="{Binding FriendDetailViewModel}"/>
     </Grid>
 </Window>

@@ -1,23 +1,23 @@
-﻿using System.Windows;
-using FriendOrganizer.UI.ViewModel;
+﻿using FriendOrganizer.UI.ViewModel;
+using System.Windows;
 
 namespace FriendOrganizer.UI
 {
-    public partial class MainWindow : Window
+  public partial class MainWindow : Window
+  {
+    private MainViewModel _viewModel;
+
+    public MainWindow(MainViewModel viewModel)
     {
-        private MainViewModel _viewModel;
-
-        public MainWindow(MainViewModel viewModel)
-        {
-            InitializeComponent();
-            _viewModel = viewModel;
-            DataContext = _viewModel;
-            Loaded += OnLoaded;
-        }
-
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            await _viewModel.LoadAsync();
-        }
+      InitializeComponent();
+      _viewModel = viewModel;
+      DataContext = _viewModel;
+      Loaded += MainWindow_Loaded;
     }
+
+    private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+      await _viewModel.LoadAsync();
+    }
+  }
 }
