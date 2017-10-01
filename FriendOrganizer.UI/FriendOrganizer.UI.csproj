@@ -91,6 +91,9 @@
     <Compile Include="View\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wrappper\FriendWrapper.cs" />
+    <Compile Include="Wrappper\ModelWrapper.cs" />
+    <Compile Include="Wrappper\NotifyDataErrorInfoBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
