@@ -1,3 +1,4 @@
+using System.Linq;
 using FriendOrganizer.Model;
 
 namespace FriendOrganizer.DataAccess.Migrations
@@ -15,18 +16,28 @@ namespace FriendOrganizer.DataAccess.Migrations
         {
             context.Friends
                 .AddOrUpdate(f => f.FirstName,
-                    new Friend {Id = 1, FirstName = "Denis", LastName = "Zaharco", Email = "denyabit@gmail.com"},
-                    new Friend {Id = 2, FirstName = "Natalia", LastName = "Zaharco", Email = "nata@gmail.com"},
-                    new Friend {Id = 3, FirstName = "Ion", LastName = "Stratan", Email = "stratan@mail.md"},
-                    new Friend {Id = 4, FirstName = "Julia", LastName = "Hansen", Email = "julia@mail.md"});
+                    new Friend { Id = 1, FirstName = "Denis", LastName = "Zaharco", Email = "denyabit@gmail.com" },
+                    new Friend { Id = 2, FirstName = "Natalia", LastName = "Zaharco", Email = "nata@gmail.com" },
+                    new Friend { Id = 3, FirstName = "Ion", LastName = "Stratan", Email = "stratan@mail.md" },
+                    new Friend { Id = 4, FirstName = "Julia", LastName = "Hansen", Email = "julia@mail.md" });
 
             context.ProgrammingLanguages
                 .AddOrUpdate(f => f.Name,
-                    new ProgrammingLanguage {Name = "C#"},
-                    new ProgrammingLanguage {Name = "TypeScript"},
-                    new ProgrammingLanguage {Name = "F#"},
-                    new ProgrammingLanguage {Name = "Swift"},
-                    new ProgrammingLanguage {Name = "Java"});
+                    new ProgrammingLanguage { Name = "C#" },
+                    new ProgrammingLanguage { Name = "TypeScript" },
+                    new ProgrammingLanguage { Name = "F#" },
+                    new ProgrammingLanguage { Name = "Swift" },
+                    new ProgrammingLanguage { Name = "Java" });
+
+            context.SaveChanges();
+
+            context.FriendPhoneNumbers
+                .AddOrUpdate(f => f.Number,
+                    new FriendPhoneNumber
+                    {
+                        Number = "+49 12345678",
+                        FriendId = context.Friends.FirstOrDefault().Id
+                    });
         }
     }
 }
