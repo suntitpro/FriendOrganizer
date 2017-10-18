@@ -163,6 +163,11 @@ namespace FriendOrganizer.UI.ViewModel
 
         protected override async void OnDeleteExecute()
         {
+            if (await _repository.HasMeetingsAsync(Friend.Id))
+            {
+                _messageDialogService.ShowInfoDialog($"{Friend.FirstName} {Friend.LastName} can't be deleted");
+                return;
+            }
             var resultDialog =
                 _messageDialogService.ShowOkCancelDialog(
                     $"Do you really want to delete frined {Friend.FirstName} {Friend.LastName}?", "Question");
